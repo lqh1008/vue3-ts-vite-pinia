@@ -19,5 +19,15 @@ module.exports = {
   // ],
   env: {
     'vue/setup-compiler-macros': true
-  }
+  },
+
+  // 用于解决组件名字必须要是连字符
+  overrides: [
+    {
+      files: ['src/views/**/*.vue'],
+      rules: {
+        'vue/multi-word-component-names': 0
+      }
+    }
+  ]
 }
