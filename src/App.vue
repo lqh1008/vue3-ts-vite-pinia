@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <router-view></router-view>
-  </div>
+  <router-view class="router-view"></router-view>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
@@ -12,4 +10,9 @@ export default defineComponent({
   }
 })
 </script>
-<style scoped></style>
+<style scoped>
+.router-view {
+  width: 100%;
+  height: 100%;
+}
+</style>

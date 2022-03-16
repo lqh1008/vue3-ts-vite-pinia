@@ -1,6 +1,5 @@
 <template>
   <div class="main">
-    MAIN
     <router-view></router-view>
   </div>
 </template>
@@ -14,4 +13,7 @@ export default defineComponent({
   }
 })
 </script>
-<style scoped></style>
+<style scoped lang="scss">
+.main {
+}
+</style>

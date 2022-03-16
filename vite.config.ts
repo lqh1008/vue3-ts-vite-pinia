@@ -14,41 +14,50 @@ const MODE = process.env.NODE_ENV as string
 const VITE_API_PREFIX = loadEnv(MODE, process.cwd()) as unknown as string
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [
-    vue(),
-    vueJsx(),
-    AutoImport({
-      resolvers: [ElementPlusResolver()]
-    }),
-    Components({
-      resolvers: [ElementPlusResolver()]
-    })
-  ],
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
-  },
-  server: {
-    host: '0.0.0.0',
-    port: 8000,
-    open: true,
-    https: false,
-    proxy: {
-      [VITE_API_PREFIX]: {
-        target: process.env.VUE_APP__URL,
-        changeOrigin: true, // 如果接口跨域，需要进行这个参数配置
-        ws: true
-        // pathRewrite: {
-        //   ['^' + [process.env.VUE_APP_BASE_API]]: '/'
-        // }
+export default defineConfig(({ command, mode }) => {
+  if (mode === 'development') {
+    console.log('DEVELOPMENT')
+  } else if (mode === 'production') {
+    console.log('PRODUCTION')
+  } else {
+    console.log('MOCK')
+  }
+  return {
+    plugins: [
+      vue(),
+      vueJsx(),
+      AutoImport({
+        resolvers: [ElementPlusResolver()]
+      }),
+      Components({
+        resolvers: [ElementPlusResolver()]
+      })
+    ],
+    resolve: {
+      alias: {
+        '@': fileURLToPath(new URL('./src', import.meta.url))
+      }
+    },
+    server: {
+      host: '0.0.0.0',
+      port: 8000,
+      open: true,
+      https: false,
+      proxy: {
+        [VITE_API_PREFIX]: {
+          target: process.env.VUE_APP__URL,
+          changeOrigin: true, // 如果接口跨域，需要进行这个参数配置
+          ws: true
+          // pathRewrite: {
+          //   ['^' + [process.env.VUE_APP_BASE_API]]: '/'
+          // }
+        }
       }
     }
+    // cssPreprocessOptions: {
+    //   scss: {
+    //     additionalData: '@/assets/css/index.scss;' // 全局公共样式
+    //   }
+    // }
   }
-  // cssPreprocessOptions: {
-  //   scss: {
-  //     additionalData: '@/assets/css/index.scss;' // 全局公共样式
-  //   }
-  // }
 })
