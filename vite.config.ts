@@ -15,14 +15,21 @@ const VITE_API_PREFIX = loadEnv(MODE, process.cwd()) as unknown as string
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
+  const modeConfig: { base?: string } = {}
+
+  // 不同环境下不同配置
   if (mode === 'development') {
     console.log('DEVELOPMENT')
+    modeConfig.base = '/'
   } else if (mode === 'production') {
     console.log('PRODUCTION')
+    modeConfig.base = './'
   } else {
     console.log('MOCK')
   }
+
   return {
+    base: modeConfig.base || '/',
     plugins: [
       vue(),
       vueJsx(),
