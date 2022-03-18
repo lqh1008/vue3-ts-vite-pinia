@@ -1,18 +1,23 @@
 import hyRequest from '..'
 
-import type { IAccount } from './types'
+import type { IAccount, ILoginResult, IDataType } from './types'
 
 enum LoginAPI {
-  AccountLogin = '/login'
+  AccountLogin = '/login',
+  UserInfo = '/users/'
 }
 
 const accountLoginRequest = (account: IAccount) => {
-  console.log('account: ', account)
-
-  return hyRequest.post({
+  return hyRequest.post<IDataType<ILoginResult>>({
     url: LoginAPI.AccountLogin,
     data: account
   })
 }
 
-export { accountLoginRequest }
+const requestUserInfoById = (id: number) => {
+  return hyRequest.get<IDataType>({
+    url: LoginAPI.UserInfo + id
+  })
+}
+
+export { accountLoginRequest, requestUserInfoById }

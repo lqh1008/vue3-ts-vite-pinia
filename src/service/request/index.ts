@@ -19,6 +19,7 @@ class HYRequest {
   constructor(config: HYRequestConfig) {
     this.instance = axios.create(config)
     this.showLoading = config.showLoading ?? DEFAULT_LOADING
+    this.intercsptors = config.interceptors
 
     // 实例请求拦截
     this.instance.interceptors.request.use(
@@ -87,7 +88,7 @@ class HYRequest {
       this.instance
         .request<any, T>(config)
         .then((res) => {
-          console.log(res)
+          // console.log(res)
 
           // 单个请求对响应的处理
           if (config.interceptors?.responseInterceptor) {

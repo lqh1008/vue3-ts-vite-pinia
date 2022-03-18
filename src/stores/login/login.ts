@@ -1,19 +1,29 @@
 // Pinia Store
 import { defineStore } from 'pinia'
-
-import { accountLoginRequest } from '@/service/login/login'
 import type { IAccount } from '@/service/login/types'
+import { accountLoginRequest, requestUserInfoById } from '@/service/login/login'
+import LocalCache from '@/utils/cache'
 
 export const useLoginStore = defineStore('login', {
   state: () => ({
-    name: 111
+    token: ''
   }),
   getters: {},
   actions: {
+    changeToken(token: string) {
+      this.token = token
+      LocalCache.setCache('token', this.token)
+    },
+
     async accountLoginAction(account: IAccount) {
       // console.log(account)
       const loginResult = await accountLoginRequest(account)
-      console.log('loginResult: ', loginResult)
+      const { id, token } = loginResult.data
+      this.changeToken(token)
+
+      const userInfoResult = await requestUserInfoById(id)
+      console.log('userInfoResult: ', userInfoResult)
+      // console.log('loginResult: ', loginResult)
     }
   }
 })
