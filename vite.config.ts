@@ -9,17 +9,16 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
-// node环境下获取环境变量
-const MODE = process.env.NODE_ENV as string
-const VITE_API_PREFIX = loadEnv(MODE, process.cwd()) as unknown as string
-
 // https://vitejs.dev/config/
-export default defineConfig(({ command, mode }) => {
+// @ts-ignore
+export default defineConfig(({ mode }) => {
+  // const { VITE_BASE_URL, VITE_API_PREFIX } = loadEnv(mode, process.cwd())
   const modeConfig: { base?: string } = {}
 
   // 不同环境下不同配置
   if (mode === 'development') {
     console.log('DEVELOPMENT')
+
     modeConfig.base = '/'
   } else if (mode === 'production') {
     console.log('PRODUCTION')
@@ -48,18 +47,48 @@ export default defineConfig(({ command, mode }) => {
     server: {
       host: '0.0.0.0',
       port: 8000,
-      open: true,
-      https: false,
+      // open: true,
+      // https: false,
+      changeOrigin: true, // 如果接口跨域，需要进行这个参数配置
+
+      cors: true, // 默认启用并允许任何源
+      // open: true, // 在服务器启动时自动在浏览器中打开应用程序
+      //反向代理配置，注意rewrite写法，开始没看文档在这里踩了坑
       proxy: {
-        [VITE_API_PREFIX]: {
-          target: process.env.VUE_APP__URL,
-          changeOrigin: true, // 如果接口跨域，需要进行这个参数配置
-          ws: true
-          // pathRewrite: {
-          //   ['^' + [process.env.VUE_APP_BASE_API]]: '/'
-          // }
+        '^/dev': {
+          target: 'http://152.136.185.210:5000',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/dev/, '')
         }
       }
+      // proxy: {
+      //   [VITE_API_PREFIX]: {
+      //     target: VITE_BASE_URL,
+      //     changeOrigin: true, // 如果接口跨域，需要进行这个参数配置
+      //     ws: true,
+      //     pathRewrite: {
+      //       ['^' + [VITE_API_PREFIX]]: '/'
+      //     }
+      //   }
+      // }
+
+      // proxy: {
+      //   '/dev': {
+      //     target: 'http://152.136.185.210:5000',
+      //     changeOrigin: true, // 如果接口跨域，需要进行这个参数配置
+      //     ws: true,
+      //     pathRewrite: {
+      //       '^/dev': '/'
+      //     }
+      //   }
+      // },
+      // proxy: {
+      //   '/dev': {
+      //     target: 'http://152.136.185.210:5000',
+      //     changeOrigin: true,
+      //     rewrite: (path) => path.replace(/^\/dev/, '')
+      //   }
+      // }
     }
     // cssPreprocessOptions: {
     //   scss: {
