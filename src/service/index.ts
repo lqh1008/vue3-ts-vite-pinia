@@ -12,12 +12,8 @@ const hyRequest = new HYRequest({
   interceptors: {
     requestInterceptor: (config) => {
       console.log('实例请求成功拦截')
-
       const token = LocalCache.getCache('token')
-      console.log('token: ', token)
-
       if (token) {
-        // debugger
         if (config.headers) {
           config.headers.Authorization = `Bearer ${token}`
         }

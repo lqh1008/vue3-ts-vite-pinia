@@ -1,6 +1,8 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
+import { useLoginStore } from '@/stores/login/login'
+
 import 'normalize.css'
 import '@/assets/css/index.scss'
 import 'element-plus/theme-chalk/base.css'
@@ -14,3 +16,6 @@ app.use(createPinia())
 app.use(router)
 
 app.mount('#app')
+
+// 用于刷新页面在pinia拿到登录信息
+useLoginStore().loadLoginInfo()

@@ -4,7 +4,8 @@ import type { IAccount, ILoginResult, IDataType } from './types'
 
 enum LoginAPI {
   AccountLogin = '/login',
-  UserInfo = '/users/'
+  UserInfo = '/users/',
+  UserMenu = '/role/'
 }
 
 const accountLoginRequest = (account: IAccount) => {
@@ -16,8 +17,16 @@ const accountLoginRequest = (account: IAccount) => {
 
 const requestUserInfoById = (id: number) => {
   return hyRequest.get<IDataType>({
-    url: LoginAPI.UserInfo + id
+    url: LoginAPI.UserInfo + id,
+    showLoading: false
   })
 }
 
-export { accountLoginRequest, requestUserInfoById }
+const requestUserMenuById = (id: number) => {
+  return hyRequest.get<IDataType>({
+    url: LoginAPI.UserMenu + id + '/menu',
+    showLoading: false
+  })
+}
+
+export { accountLoginRequest, requestUserInfoById, requestUserMenuById }

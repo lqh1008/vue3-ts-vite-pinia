@@ -18,6 +18,18 @@ class LocalCache {
   clearCache() {
     window.localStorage.clear()
   }
+
+  getAllCache() {
+    const allStorage = window.localStorage
+    const allCache: any = {}
+    for (const key in allStorage) {
+      if (Object.prototype.hasOwnProperty.call(allStorage, key)) {
+        const element = allStorage[key]
+        allCache[key] = JSON.parse(element)
+      }
+    }
+    return allCache
+  }
 }
 
 export default new LocalCache()
