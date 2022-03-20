@@ -27,8 +27,12 @@
     - 直接有component这个字段，弊端在于名称路径必须一致
     - 前端代码中会有path与component的映射，通过path去寻找component（采取）
 ```
+
 ```
 5.coderwhy工具使用
   - coderwhy add3page user -d src/views/main/system/user
 ```
 
+```
+6.通过获取的userMenus的path与路由中写的path对应，去找到对应的component
+```

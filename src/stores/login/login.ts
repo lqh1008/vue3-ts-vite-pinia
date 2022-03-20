@@ -3,6 +3,8 @@ import { defineStore } from 'pinia'
 import type { IAccount } from '@/service/login/types'
 import router from '@/router/index'
 
+import { mapMenusToRoutes } from '@/utils/map-menus'
+
 import {
   accountLoginRequest,
   requestUserInfoById,
@@ -31,6 +33,12 @@ export const useLoginStore = defineStore('login', {
     changeUserMenu(userMenu: any) {
       this.userMenu = userMenu
       LocalCache.setCache('userMenu', this.userMenu)
+      const routes = mapMenusToRoutes(this.userMenu)
+      console.log('routes: ', routes)
+      routes.forEach((route) => {
+        router.addRoute('main', route)
+      })
+      // console.log('router: ', router)
     },
 
     // 登录请求
@@ -61,7 +69,8 @@ export const useLoginStore = defineStore('login', {
       // debugger
       this.token = token
       this.userInfo = userInfo
-      this.userMenu = userMenu
+      // this.userMenu = userMenu
+      this.changeUserMenu(userMenu)
     }
   }
 })

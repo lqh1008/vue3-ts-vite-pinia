@@ -22,6 +22,7 @@
             v-for="subItem in item.children"
             :key="subItem.id"
             :index="String(item.id) + '-' + String(subItem.id)"
+            @click="handleMenuItemClick(subItem)"
             >{{ subItem.name }}</el-menu-item
           >
         </el-sub-menu>
@@ -32,9 +33,11 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineProps } from 'vue'
+import { computed } from 'vue'
 import { Food } from '@element-plus/icons-vue'
 import { useLoginStore } from '@/stores/login/login'
+
+import router from '@/router/index'
 
 defineProps({
   collapse: {
@@ -54,6 +57,11 @@ const userMenu = computed(() => {
     }
   ]
 })
+
+const handleMenuItemClick = (menuItem: any) => {
+  // console.log(menuItem)
+  router.push(menuItem.url ?? '/not-found')
+}
 </script>
 
 <style scoped lang="scss">
