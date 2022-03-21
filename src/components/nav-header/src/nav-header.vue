@@ -3,12 +3,17 @@
     <el-icon class="fold-menu" @click="handleFoldClick"
       ><fold v-show="isFold" /> <expand v-show="!isFold"
     /></el-icon>
+    <div class="content">
+      <user-info />
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { Fold, Expand } from '@element-plus/icons-vue'
+
+import UserInfo from './user-info.vue'
 
 const emit = defineEmits(['foldChange'])
 

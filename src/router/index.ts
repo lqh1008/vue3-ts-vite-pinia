@@ -1,9 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 
-import LocalCache from '@/utils/cache'
+import localCache from '@/utils/cache'
 // 引入路由表
 import routesMap from './routes'
+
+import { firstMenu } from '@/utils/map-menus'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -18,15 +20,15 @@ const routes: RouteRecordRaw[] = [
   {
     name: 'main',
     path: '/main',
-    component: routesMap['main'],
-    redirect: '/main/home',
-    children: [
-      {
-        name: 'home',
-        path: '/main/home',
-        component: routesMap['home']
-      }
-    ]
+    component: routesMap['main']
+    // redirect: '/main/home',
+    // children: [
+    //   {
+    //     name: 'home',
+    //     path: '/main/home',
+    //     component: routesMap['home']
+    //   }
+    // ]
   },
   {
     name: 'test',
@@ -44,17 +46,17 @@ const router = createRouter({
   history: createWebHistory()
 })
 
-router.beforeEach((to, _, next) => {
-  if (to.path === '/login') {
-    next()
-  } else {
-    const token = LocalCache.getCache('token')
-    if (token) {
-      console.log('路由拦截的to.path: ', to.path)
-      next()
-    } else {
-      next({ path: '/login' })
+router.beforeEach((to) => {
+  if (to.path !== '/login') {
+    const token = localCache.getCache('token')
+    if (!token) {
+      return '/login'
     }
+  }
+
+  if (to.path === '/main') {
+    console.log('firstMenu: ', firstMenu)
+    return firstMenu.url
   }
 })
 

@@ -16,7 +16,7 @@ export const useLoginStore = defineStore('login', {
   state: () => ({
     token: '',
     userInfo: {},
-    userMenu: {}
+    userMenu: []
   }),
   getters: {},
   actions: {
@@ -60,17 +60,17 @@ export const useLoginStore = defineStore('login', {
       this.changeUserMenu(userMenuResult.data)
       router.push('/main')
 
-      console.log(LocalCache.getAllCache())
+      // console.log(LocalCache.getAllCache())
     },
 
     // 刷新页面将数据存入pinia
     loadLoginInfo() {
       const { token, userInfo, userMenu } = LocalCache.getAllCache()
-      // debugger
-      this.token = token
-      this.userInfo = userInfo
-      // this.userMenu = userMenu
-      this.changeUserMenu(userMenu)
+
+      token ?? (this.token = token)
+      userInfo ?? (this.userInfo = userInfo)
+      userMenu ?? (this.userMenu = userMenu)
+      // this.changeUserMenu(userMenu)
     }
   }
 })

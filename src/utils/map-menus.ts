@@ -1,4 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router'
+let firstMenu: any = null
 
 const mapMenusToRoutes = (userMenus: any): RouteRecordRaw[] => {
   console.log('userMenus: ', userMenus)
@@ -22,18 +23,36 @@ const mapMenusToRoutes = (userMenus: any): RouteRecordRaw[] => {
 
   //2.根据菜单获取需要的routes
   const _recurseGetRoute = (menus: any[]) => {
+    console.log(2222)
     for (const item of menus) {
       if (item.type === 2) {
         const route = allRoutes.find((route) => route.path === item.url)
         routes.push(route as RouteRecordRaw)
+        if (!firstMenu) {
+          firstMenu = item
+        }
       } else {
         _recurseGetRoute(item.children)
       }
     }
   }
-  _recurseGetRoute(userMenus)
 
+  userMenus && _recurseGetRoute(userMenus)
+  console.log(routes, 22222222)
   return routes
 }
 
-export { mapMenusToRoutes }
+const pathMapToMenu = (userMenus: any[], currentPath: string): any => {
+  for (const menu of userMenus) {
+    if (menu.type === 1) {
+      const findMenu = pathMapToMenu(menu.children ?? [], currentPath)
+      if (findMenu) {
+        return findMenu
+      }
+    } else if (menu.type === 2 && menu.url === currentPath) {
+      return menu
+    }
+  }
+}
+
+export { mapMenusToRoutes, pathMapToMenu, firstMenu }

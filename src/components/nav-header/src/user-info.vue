@@ -21,20 +21,12 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from 'vue'
-import { useStore } from '@/store'
-
-export default defineComponent({
-  setup() {
-    const store = useStore()
-    const name = computed(() => store.state.login.userInfo.name)
-
-    return {
-      name
-    }
-  }
-})
+<script lang="ts" setup>
+import { computed } from 'vue'
+import { useLoginStore } from '@/stores/login/login'
+const loginStore = useLoginStore()
+//@ts-ignore
+const name = computed(() => loginStore.userInfo.name)
 </script>
 
 <style scoped>

@@ -6,7 +6,7 @@
     </div>
     <el-menu
       class="el-menu-vertical"
-      default-active="2"
+      :default-active="defaultRoute"
       background-color="#0c2135"
       text-color="#b7bdc3"
       active-text-color="#0a60bd"
@@ -15,16 +15,18 @@
       <template v-for="item in userMenu" :key="item.id">
         <el-sub-menu v-if="item.type === 1" :index="String(item.id)">
           <template #title>
+            {{ item.id }}
             <el-icon style="margin-right: 20px"><food /></el-icon>
             <span>{{ item.name }}</span>
           </template>
           <el-menu-item
             v-for="subItem in item.children"
             :key="subItem.id"
-            :index="String(item.id) + '-' + String(subItem.id)"
+            :index="String(subItem.id)"
             @click="handleMenuItemClick(subItem)"
-            >{{ subItem.name }}</el-menu-item
-          >
+            >{{ subItem.name }}
+            {{ subItem.id }}
+          </el-menu-item>
         </el-sub-menu>
         <el-menu-item v-else></el-menu-item>
       </template>
@@ -33,11 +35,14 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 import { Food } from '@element-plus/icons-vue'
 import { useLoginStore } from '@/stores/login/login'
 
-import router from '@/router/index'
+import { pathMapToMenu } from '@/utils/map-menus'
+
+// import router from '@/router/index'
+import { useRoute, useRouter } from 'vue-router'
 
 defineProps({
   collapse: {
@@ -46,9 +51,11 @@ defineProps({
   }
 })
 
+const defaultRoute = ref('')
+
 const userMenu = computed(() => {
   //此处断言元组避免item取不到type等值
-  return useLoginStore().userMenu as [
+  return useLoginStore().userMenu as unknown as [
     {
       type: number
       name: string
@@ -58,8 +65,15 @@ const userMenu = computed(() => {
   ]
 })
 
+// router
+const router = useRouter()
+const route = useRoute()
+const currentPath = route.path
+
+const menu = pathMapToMenu(userMenu.value, currentPath)
+defaultRoute.value = menu.id + ''
+
 const handleMenuItemClick = (menuItem: any) => {
-  // console.log(menuItem)
   router.push(menuItem.url ?? '/not-found')
 }
 </script>
