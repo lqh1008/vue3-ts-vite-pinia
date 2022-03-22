@@ -48,8 +48,8 @@ export const searchFormConfig: IForm = {
       label: '创建时间',
       placeholder: '请选择创建的时间范围',
       otherOptions: {
-        ['start-placeholder']: '',
-        ['end-placeholder']: '',
+        ['start-placeholder']: '开始时间',
+        ['end-placeholder']: '结束时间',
         type: 'daterange'
       },
       field: 'date'

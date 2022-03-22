@@ -1,24 +1,21 @@
 <template>
   <div class="user">
-    <div class="search">
-      <hy-form v-bind="searchFormConfig" v-model="formData" />
-    </div>
+    <page-search :searchFormConfig="searchFormConfig" />
     <div class="content"></div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { HyForm } from '@/base-ui/form'
 import { searchFormConfig } from './config/search.config'
-
-const formData = ref({
-  id: '',
-  name: '',
-  password: '',
-  sport: '',
-  date: ''
-})
+import PageSearch from '@/components/page-search/index'
 </script>
 
-<style scoped></style>
+<style scoped>
+.header {
+  color: red;
+}
+.handle-btns {
+  text-align: right;
+  padding: 0 50px 20px 0;
+}
+</style>
