@@ -24,7 +24,6 @@
             :index="String(subItem.id)"
             @click="handleMenuItemClick(subItem)"
             >{{ subItem.name }}
-            {{ subItem.id }}
           </el-menu-item>
         </el-sub-menu>
         <el-menu-item v-else></el-menu-item>

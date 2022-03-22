@@ -4,18 +4,30 @@
       ><fold v-show="isFold" /> <expand v-show="!isFold"
     /></el-icon>
     <div class="content">
+      <hy-breadcrumb :breadcrumbs="breadcrumbs" />
       <user-info />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { Fold, Expand } from '@element-plus/icons-vue'
+import { useRoute } from 'vue-router'
+// import { useRouter } from 'vue-router'
+import { useLoginStore } from '@/stores/login/login'
 
 import UserInfo from './user-info.vue'
+import HyBreadcrumb from '@/base-ui/breadcrumb'
+
+import { pathMapToBreadcrumb } from '@/utils/map-menus'
 
 const emit = defineEmits(['foldChange'])
+const breadcrumbs = computed(() => {
+  const userMenu = useLoginStore().userMenu
+  const route = useRoute()
+  return pathMapToBreadcrumb(userMenu, route.path)
+})
 
 const isFold = ref(false)
 const handleFoldClick = () => {

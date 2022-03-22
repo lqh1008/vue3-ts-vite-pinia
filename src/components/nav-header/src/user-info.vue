@@ -23,10 +23,12 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useLoginStore } from '@/stores/login/login'
 const loginStore = useLoginStore()
+const { userInfo } = storeToRefs(loginStore)
 //@ts-ignore
-const name = computed(() => loginStore.userInfo.name)
+const name = computed(() => userInfo.value.name)
 </script>
 
 <style scoped>

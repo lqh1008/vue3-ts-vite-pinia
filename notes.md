@@ -36,3 +36,7 @@
 ```
 6.通过获取的userMenus的path与路由中写的path对应，去找到对应的component
 ```
+
+```
+7.reactive做双向绑定多少有点问题！！！
+```

@@ -34,11 +34,9 @@ export const useLoginStore = defineStore('login', {
       this.userMenu = userMenu
       LocalCache.setCache('userMenu', this.userMenu)
       const routes = mapMenusToRoutes(this.userMenu)
-      console.log('routes: ', routes)
       routes.forEach((route) => {
         router.addRoute('main', route)
       })
-      // console.log('router: ', router)
     },
 
     // 登录请求
@@ -67,10 +65,10 @@ export const useLoginStore = defineStore('login', {
     loadLoginInfo() {
       const { token, userInfo, userMenu } = LocalCache.getAllCache()
 
-      token ?? (this.token = token)
-      userInfo ?? (this.userInfo = userInfo)
+      token && (this.token = token)
+      userInfo && (this.userInfo = userInfo)
+
       if (userMenu) {
-        // this.userMenu = userMenu
         this.changeUserMenu(userMenu)
       }
     }

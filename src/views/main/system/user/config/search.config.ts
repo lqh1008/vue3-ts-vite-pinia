@@ -5,24 +5,27 @@ export const searchFormConfig: IForm = {
   itemLayout: {
     padding: '10px 40px'
   },
-  colLayout: {
-    span: 8
-  },
+  // colLayout: {
+  //   span: 8
+  // },
   formItems: [
     {
       type: 'input',
       label: 'id',
-      placeholder: '请输入id'
+      placeholder: '请输入id',
+      field: 'id'
     },
     {
       type: 'input',
       label: '用户名',
-      placeholder: '请输入用户名'
+      placeholder: '请输入用户名',
+      field: 'name'
     },
     {
       type: 'password',
       label: '密码',
-      placeholder: '请输入密码'
+      placeholder: '请输入密码',
+      field: 'password'
     },
     {
       type: 'select',
@@ -37,7 +40,8 @@ export const searchFormConfig: IForm = {
           label: '足球',
           value: 'football'
         }
-      ]
+      ],
+      field: 'sport'
     },
     {
       type: 'datepicker',
@@ -47,7 +51,8 @@ export const searchFormConfig: IForm = {
         ['start-placeholder']: '',
         ['end-placeholder']: '',
         type: 'daterange'
-      }
+      },
+      field: 'date'
     }
   ]
 }
