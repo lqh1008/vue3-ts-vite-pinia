@@ -15,7 +15,6 @@
       <template v-for="item in userMenu" :key="item.id">
         <el-sub-menu v-if="item.type === 1" :index="String(item.id)">
           <template #title>
-            {{ item.id }}
             <el-icon style="margin-right: 20px"><food /></el-icon>
             <span>{{ item.name }}</span>
           </template>

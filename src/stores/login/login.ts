@@ -50,12 +50,12 @@ export const useLoginStore = defineStore('login', {
 
       // 2.根据id获取用户信息
       const userInfoResult = await requestUserInfoById(id)
-      console.log('userInfoResult: ', userInfoResult)
+      // console.log('userInfoResult: ', userInfoResult)
       this.changeUserInfo(userInfoResult.data)
 
       // 3.根据id获取用户菜单
       const userMenuResult = await requestUserMenuById(id)
-      console.log('userMenuResult: ', userMenuResult)
+      // console.log('userMenuResult: ', userMenuResult)
 
       this.changeUserMenu(userMenuResult.data)
       router.push('/main')
@@ -69,8 +69,10 @@ export const useLoginStore = defineStore('login', {
 
       token ?? (this.token = token)
       userInfo ?? (this.userInfo = userInfo)
-      userMenu ?? (this.userMenu = userMenu)
-      // this.changeUserMenu(userMenu)
+      if (userMenu) {
+        // this.userMenu = userMenu
+        this.changeUserMenu(userMenu)
+      }
     }
   }
 })
