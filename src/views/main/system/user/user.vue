@@ -1,13 +1,15 @@
 <template>
   <div class="user">
     <page-search :searchFormConfig="searchFormConfig" />
-    <div class="content"></div>
+    <page-content :contentTableConfig="contentTableConfig" />
   </div>
 </template>
 
 <script lang="ts" setup>
 import { searchFormConfig } from './config/search.config'
-import PageSearch from '@/components/page-search/index'
+import { contentTableConfig } from './config/content.config'
+import PageSearch from '@/components/page-search'
+import PageContent from '@/components/page-content'
 </script>
 
 <style scoped>

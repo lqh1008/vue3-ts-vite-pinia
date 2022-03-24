@@ -21,7 +21,7 @@
 ```
 
 ```
-4.RBAC
+5.RBAC
   - 返回的菜单数据会有url，每个url对应的都是路由的path，路由的path也对应component
   - 方案：
     - 直接有component这个字段，弊端在于名称路径必须一致
@@ -29,14 +29,22 @@
 ```
 
 ```
-5.coderwhy工具使用
+6.coderwhy工具使用
   - coderwhy add3page user -d src/views/main/system/user
 ```
 
 ```
-6.通过获取的userMenus的path与路由中写的path对应，去找到对应的component
+7.通过获取的userMenus的path与路由中写的path对应，去找到对应的component
 ```
 
 ```
-7.reactive做双向绑定多少有点问题！！！
+8.reactive做双向绑定多少有点问题！！！
+```
+
+```
+9.一定要记清楚？？，千万不要用错了！！！
+```
+
+```
+10.vue也要遵循单向数据流，父组件需要监听emit传来的方法去修改子组件的值
 ```

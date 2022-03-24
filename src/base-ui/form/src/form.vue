@@ -85,8 +85,9 @@ const propsData = defineProps({
   }
 })
 
-const emit = defineEmits(['update:modelValue', '222', '3333'])
+const emit = defineEmits(['update:modelValue'])
 
+// 这里是需要深拷贝的，这里用扩展运算符就已经可以了
 const formData = ref({ ...propsData.modelValue })
 watch(
   formData,
