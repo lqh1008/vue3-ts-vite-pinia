@@ -9,7 +9,8 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
     "prettier": "prettier --write .",
     "prepare": "husky install",
-    "commit": "cz"
+    "commit": "cz",
+    "preinstall": "npx only-allow npm"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^1.1.3",
@@ -40,6 +41,7 @@
     "eslint-plugin-vue": "^8.2.0",
     "husky": "^7.0.0",
     "node-sass": "^6.0.1",
+    "only-allow": "^1.1.0",
     "postcss": "^8.4.8",
     "prettier": "^2.5.1",
     "sass": "^1.49.9",
